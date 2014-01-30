@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+  
+	<h:head>
+		<title>..::setsoft::..</title>
+		<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/estilo.css"/>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />	
+	</h:head>
+
+	<body >
+		<p:dialog visible="true" closable="false" draggable="false" resizable="false" width="400">
+			<form action="j_spring_security_check" method="post">
+				<table width="100%" border="0">
+					<tr>
+						<td valign="middle" colspan="2" align="center">
+							<img border="0" src="#{facesContext.externalContext.requestContextPath}/imagens/logo.png"/>
+						</td>
+					</tr>
+					<tr>
+						<td valign="middle" colspan="2" align="center">
+							setsoft
+						</td>
+					</tr>
+					<tr>
+						<th colspan="2" align="center">
+							<h:outputText value="Usu&#225;rio ou senha incorretos!" rendered="#{param.erro}" style="color: darkred"/>
+						</th>
+					</tr>
+					
+					<tr>
+						<td align="right">
+							<h:graphicImage value="/imagens/cadeado.png" style="border: none;"/>
+							<h:outputLabel for="j_username" value="Usu&#225;rio" />							
+						</td>
+						<td>
+							<h:inputText id="j_username" />
+						</td>
+					</tr>
+					<tr>
+						<td align="right">
+							<h:graphicImage value="/imagens/senha.png" style="border: none;"/>
+							<h:outputLabel for="j_password" value="Senha" />
+						</td>
+						<td>
+							<h:inputSecret id="j_password" />
+						</td>
+					</tr>
+					<tr>
+						<td align="center" colspan="2">
+							<h:commandButton value="Entrar" /><br /><br />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<h:outputText value="Copyright &#169; setsoft. Todos os direitos reservados." style="text-align:center;font-size:8pt;font-family:Verdana;font-style:normal;"/>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</p:dialog>
+	</body>
+</html>

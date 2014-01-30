@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+      
+<ui:composition template="/paginas/facelet-principal.xhtml">	
+	
+	<ui:define name="titulo">...::Controle de #{nomeEntidade}::...</ui:define>
+	
+	<ui:define name="conteudo">
+								 
+			<p:outputPanel id="outputPanelBlocoBuscar">
+				<h:panelGroup rendered="#{controlador.isBuscando()}">
+					<fieldset style="border-color: inactiveborder;">
+						<legend>Dados da Busca (#{nomeEntidade})</legend>
+						<ui:insert name="blocoBuscar">Espaco para o(s) campo(s) de busca</ui:insert>
+					</fieldset>
+				</h:panelGroup>
+			</p:outputPanel>
+			<br />
+			
+			<p:outputPanel id="outputPanelBlocoSalvarEditarExcluir">
+				<h:panelGroup rendered="#{not controlador.isBuscando()}">
+					<fieldset>
+						<legend>Dados de #{nomeEntidade}</legend>
+						<ui:insert name="blocoSalvarEditarExcluir">Espaco para o conteudo</ui:insert>
+					</fieldset>
+				</h:panelGroup>
+			</p:outputPanel>
+			<br />
+			
+			<p:outputPanel id="outputPanelBlocoBotoes">
+				<ui:insert name="blocoBotoes">
+					<h:commandButton 	id				= "botaoBuscar"
+										value			= "Buscar"
+										actionListener	= "#{controlador.realizarBusca}"
+										rendered		= "#{controlador.isBuscando()}"
+										reRender		= "outputPanelBlocoResultadoDaBusca"
+										immediate		= "false"/>	
+													
+					<h:commandButton 	id				= "botaoNovo"
+										value			= "Novo"
+										actionListener	= "#{controlador.prepararAdicionar}"
+										rendered		= "#{controlador.isBuscando()}"
+										reRender		= "formulario"
+										immediate		= "true"/>
+										
+					<h:commandButton 	id				= "botaoSalvar"
+										value			= "Salvar"
+										styleClass		= "botao"
+										actionListener	= "#{controlador.realizarCRUD}"
+										rendered		= "#{controlador.isAdicionando() or controlador.isAlterando()}"
+								 		reRender		= "formulario"
+								 		immediate		= "false"/>
+								 		
+					<h:commandButton 	id				= "botaoExcluir"
+										value			= "Excluir"
+										styleClass		= "botao"
+										onclick			= "if(!confirm('Confirma a exclusão permanente?'))return false"
+										actionListener	= "#{controlador.realizarCRUD}"										
+								 		rendered		= "#{controlador.isExcluindo()}"
+								 		reRender		= "formulario"
+								 		immediate		= "true"/>
+								 		
+					<h:commandButton 	id				= "botaoCancelar"
+										value			= "#{controlador.isVisualizando() ? 'Voltar' : 'Cancelar'}"
+										styleClass		= "botao"
+										actionListener	= "#{controlador.cancelar}"
+								 		rendered		= "#{not controlador.isBuscando()}"
+								 		reRender		= "formulario"
+								 		immediate		= "true"/>
+				</ui:insert>
+			</p:outputPanel>
+			<br /><br />
+			
+			<p:outputPanel id="outputPanelBlocoResultadoDaBusca" ajax="true">
+			
+				<h:outputLabel value="N&#227;o houve resultados para a pesquisa solicitada." rendered="#{controlador.isBuscando() and lista.size()==0}" />
+			
+				<h:panelGroup  rendered="#{controlador.isBuscando() and lista.size() > 0}">
+					<ui:insert name="blocoResultadoDaBusca"/>
+					<h:outputLabel value="Total: #{lista.size()}"/>					
+				</h:panelGroup>
+			</p:outputPanel>						
+	    
+    </ui:define>	
+</ui:composition>
+
+</html>

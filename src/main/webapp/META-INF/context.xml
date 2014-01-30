@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/setsoft">
+	
+	<!-- DataSource JNDI -->
+	<!-- 
+	<Resource name="jdbc/setsoftDB"
+		auth="Container"
+		type="javax.sql.DataSource"
+		maxActive="100" 
+		maxIdle="20" 
+		maxWait="10000"
+		username="postgres"
+		password="admin"
+		driverClassName="org.postgresql.Driver"
+		url="jdbc:postgresql://localhost:5432/setsoft"
+  		removeAbandoned="true"
+  		removeAbandonedTimeout="60" 
+  		logAbandoned="true"/>
+  		 -->
+  		
+ 	<Resource name="jdbc/setsoftDB"
+		auth="Container"
+		type="javax.sql.DataSource"
+		maxActive="100" 
+		maxIdle="20" 
+		maxWait="10000"
+		username="sa"
+		password=""
+		driverClassName="org.h2.Driver"
+		url="jdbc:h2:~/.sissetsoft/setsoft"
+  		removeAbandoned="true"
+  		removeAbandonedTimeout="60" 
+  		logAbandoned="true"/>
+	
+	<!-- nao funcionando -->
+	<!-- Mail Session JNDI
+	<Resource name="mail/session"
+		auth="Container"
+		type="javax.mail.Session"
+		mail.transport.protocol="smtp"
+		mail.smtp.starttls.enable="true"
+		mail.debug="true"
+		mail.smtp.host="smtp.gmail.com"
+		mail.smtp.port="587"
+		mail.smtp.auth="true"
+		mail.smtp.user="bitmarques@gmail.com"
+		mail.smtp.password="123456"
+		mail.smtp.socketFactory.class="javax.net.ssl.SSLSocketFactory"
+		mail.smtp.socketFactory.fallback="false" />
+		-->
+</Context>

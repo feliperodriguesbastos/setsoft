@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<f:view encoding="ISO-8859-1" locale="pt_BR">      
+    
+<h:head>
+	<title><ui:insert name="titulo">...::setsoft::...</ui:insert></title>
+	<link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/estilo.css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	
+	<script type="text/javascript" src="#{request.contextPath}/jQuery/jquery.meio.mask.js" charset="utf-8"></script>
+	 
+	 <script type="text/javascript">
+        $(document).delegate("input:text", "focus", function(){
+             $(this).setMask();
+        });
+	</script>
+	
+	<script type="text/javascript">  
+		function start() {  
+			statusDialog.show();
+		}  
+		  
+		function stop() {  
+			statusDialog.hide(); 
+		}  
+   	</script>
+	
+</h:head>
+
+<h:body>
+	
+	<p:layout fullPage="true">
+		
+    	<p:layoutUnit position="north" size="80" style="border:0;">
+    		<table width="100%" border="0">
+    			<tr>
+    				<td align="left" valign="middle" width="25%">
+    					<a href="#{facesContext.externalContext.requestContextPath}/index.jsf">
+    						<img border="0" src="#{facesContext.externalContext.requestContextPath}/imagens/logo.png"/>
+    					</a>
+    				</td>
+    				
+    				<td align="center" valign="middle" style="font-size: xx-large;font-style: inherit;color: green;font: bold;">
+    					setsoft
+    				</td>
+    				    				
+    				<td align="right" valign="middle" width="25%">
+    					<h:outputText value="Seja bem vindo: #{controladorLogin.usuario.nome}"/>
+    				</td> 
+    				   				
+    			</tr>   			
+    		</table>    							 	 			 
+    	</p:layoutUnit>	
+    	
+    	<p:layoutUnit position="west" size="70" style="border:0;" resizable="false" closable="false" collapsible="false">
+    		<table width="100%">
+    			<tr>
+    				<td align="center" valign="middle">
+    					<a href="#{facesContext.externalContext.requestContextPath}/index.jsf" title="Home">
+    						<img border="0" src="#{facesContext.externalContext.requestContextPath}/imagens/home.png"/>
+    					</a>
+    				</td>
+    			</tr>
+    			
+    			<tr>
+    				<td align="center" valign="middle">											
+    					<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" title="Sair">
+    						<img border="0" src="#{facesContext.externalContext.requestContextPath}/imagens/sair.png"/>
+    					</a>						
+    				</td>
+    			</tr>
+    		</table>    		
+    	</p:layoutUnit>    	
+    	
+ 		<p:layoutUnit position="center"  style="border:0;">
+ 			
+ 			<table width="100%" border="0">
+    			<tr>
+    				<td align="left" valign="middle">
+    					
+    					<p:menubar autoSubmenuDisplay="true" style="border:0;">
+ 			
+			 				<p:menuitem value="In&#237;cio" url="/index.jsf" icon="ui-icon ui-icon-home" />
+			    			
+			    			<p:submenu label="Adiministra&#231;&#227;o">  
+					            <p:menuitem value="Usuários" url="/paginas/perfil-administrador/usuario.jsf"/>
+					        </p:submenu>
+					        
+				            <p:submenu label="Sobre" icon="ui-icon ui-icon-help">
+				         		<p:menuitem value="Sistema" url="/paginas/sobre.jsf" />
+				         	</p:submenu>
+				         	 
+				         	 <p:menuitem value="Sair" url="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" />
+				         	 
+			 			</p:menubar>    					
+					</td>    									 				
+    			</tr>   			
+    		</table>
+	         		
+ 			<h:form id="formulario" enctype="multipart/form-data">
+ 				<p:messages autoUpdate="true" showDetail="false" />
+ 				<ui:insert name="conteudo">Espaco para o conteudo</ui:insert>
+ 			</h:form>
+ 			
+ 		</p:layoutUnit>
+    	
+    	<p:layoutUnit position="south" size="35" style="text-align:center;font-size:8pt;font-family:Verdana;font-style:normal;border:0" header="Copyright &#169; setsoft. Todos os direitos reservados." resizable="false" closable="false" collapsible="false">
+    	 	
+  		</p:layoutUnit>
+  		
+ 	 </p:layout>
+	
+</h:body>
+</f:view>
+</html>

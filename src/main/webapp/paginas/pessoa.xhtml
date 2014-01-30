@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" >
+
+<h:panelGrid columns="1" cellpadding="5">
+	<h:panelGroup>
+		<h:outputLabel for="dataCadastro" value="Data do Cadastro" /><br />
+		<h:inputText id="dataCadastro" value="#{pessoa.dataCadastro}"
+					 disabled="true">
+			<f:convertDateTime type="date" dateStyle="short"
+				timeZone="America/Belem" pattern="dd/MM/yyyy HH:mm:ss" />
+		</h:inputText>
+	</h:panelGroup>
+</h:panelGrid>
+<h:panelGrid columns="2" cellpadding="5">
+	
+	<h:panelGroup>
+		<h:outputLabel for			=	"tipoPessoa"
+					   value		=	"Tipo de Pessoa *" /><br/>
+		<p:selectOneMenu id			=	"tipoPessoa"
+						 value		=	"#{pessoa.tipoPessoa}"
+				 		 label		=	"Tipo de Pessoa"
+				 		 required	=	"true"
+				 		 disabled	=	"#{controlador.isExcluindo() or controlador.isVisualizando()}">
+			<f:selectItem itemLabel="Selecione..." itemValue=""/>
+			<f:selectItems value="#{pessoa.tiposDePessoa}" 
+          					   var="t" itemLabel="#{t.tipo}"/>
+          	<p:ajax event="change" update="outputPanelIdentificacaoFiscal" process="@this"/>          					
+    	</p:selectOneMenu>
+	</h:panelGroup>
+	
+	<p:outputPanel id="outputPanelIdentificacaoFiscal">
+	
+		<h:panelGrid columns="2" cellpadding="5" rendered="#{pessoa.isTipoPessoaPreenchido()}">
+		
+			<h:panelGroup>
+				<h:outputLabel for="cpf" value="#{pessoa.tipoPessoa.sigla}" /><br />
+				
+				<p:inputText id="cpf" value="#{pessoa.identificacaoFiscal}"
+							 label="#{pessoa.tipoPessoa.sigla}"  style="width:283px;" alt="cpf"
+							 required="false"
+							 disabled="#{controlador.isExcluindo() or controlador.isVisualizando()}"
+							 converter="conversorCPF"
+							 rendered="#{pessoa.isPessoaFisica()}" >
+					 <f:validator validatorId="validadorCPF" />
+				 </p:inputText>
+							 
+				<p:inputText id="cnpj" value="#{pessoa.identificacaoFiscal}"
+							 label="#{pessoa.tipoPessoa.sigla}"  style="width:283px;" alt="cnpj"
+							 required="false"
+							 disabled="#{controlador.isExcluindo() or controlador.isVisualizando()}"
+							 converter="conversorCNPJ"
+							 rendered="#{pessoa.isPessoaJuridica()}" >
+					 <f:validator validatorId="validadorCNPJ" />
+				 </p:inputText>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:outputLabel for="nome" value="#{pessoa.tipoPessoa.descricao} *" /><br />
+				<p:inputText id="nome" value="#{pessoa.nome}" required="true"
+							 label="#{pessoa.tipoPessoa.descricao}" style="width:400px;text-transform: uppercase;"					  
+							 disabled="#{controlador.isExcluindo() or controlador.isVisualizando()}">
+					<f:validateLength maximum="100" />
+				</p:inputText>
+			</h:panelGroup>
+		</h:panelGrid>
+		
+	</p:outputPanel>
+</h:panelGrid>
+
+<h:panelGrid columns="2" cellpadding="5">
+	<h:panelGroup>
+     	<h:outputLabel for="endereco" value="Endere&#231;o" /><br />
+     	<p:inputTextarea id="endereco" value="#{pessoa.endereco}"
+					 label="Endere&#231;o" maxlength="500"
+					 disabled="#{controlador.isExcluindo() or controlador.isVisualizando()}"
+					 style="width:415px;height:50px" effectDuration="400">
+			<f:validateLength maximum="500"  />
+		</p:inputTextarea>
+     </h:panelGroup>
+     
+     <h:panelGroup>
+		<h:outputLabel for="numero" value="N&#250;mero" /><br />
+		<p:inputText id="numero" value="#{pessoa.numero}" required="false"
+					 label="N&#250;mero" alt="integer"				  
+					 disabled="#{controlador.isExcluindo() or controlador.isVisualizando()}">
+			<f:convertNumber />
+		</p:inputText>
+	</h:panelGroup>
+</h:panelGrid>
+
+<h:panelGrid columns="2" cellpadding="5">
+	<h:panelGroup>
+		<h:outputLabel for="email" value="E-mail" /><br />
+		<p:inputText id="email" value="#{pessoa.email}" required="false"
+					 label="E-mail" style="width:415px;" 
+					 disabled="#{controlador.isExcluindo() or controlador.isVisualizando()}">
+			<f:validateLength maximum="100" />
+		</p:inputText>
+	</h:panelGroup>	
+	<h:panelGroup>
+		<h:outputLabel for="telefone" value="Telefone" /><br />
+		<p:inputText id="telefone" value="#{pessoa.telefone}"
+					 label="Telefone"  alt="phone" 
+					 disabled="#{controlador.isExcluindo() or controlador.isVisualizando()}"/>
+	</h:panelGroup>
+</h:panelGrid> 
+</html>

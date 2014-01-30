@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+<ui:composition template="/paginas/facelet-crud.xhtml">
+	
+	<ui:param name="nomeEntidade" value="Usuário" />
+	<ui:param name="controlador" value="#{controladorUsuario}" />
+	<ui:param name="lista" value="#{controlador.usuarios}" />
+	
+	<ui:define name="blocoBuscar">			
+		<h:panelGrid columns="1" cellpadding="5">		
+			<h:panelGroup>
+				<h:outputLabel for="nomeBusca" value="Nome / Raz&#227;o Social" /><br/>
+				<p:inputText id="nomeBusca"  value="#{controlador.usuario.nome}"
+							 label="Nome" maxlength="100" style="width:283px;">
+					<f:validateLength maximum="100"  />
+				</p:inputText>
+			</h:panelGroup>
+		</h:panelGrid>	
+	</ui:define>	
+	
+	<ui:define name="blocoSalvarEditarExcluir">
+		<ui:include src="/paginas/pessoa.xhtml">
+			<ui:param name="controlador" value="#{controladorUsuario}" />
+			<ui:param name="pessoa" value="#{controlador.usuario}" />
+		</ui:include>
+		
+		<h:panelGrid columns="2" cellpadding="5">			
+			<h:panelGroup>
+				<h:outputLabel for		=	"login"
+							   value	=	"Login *" /><br/>
+				<p:inputText id			=	"login"
+							 value		=	"#{controlador.usuario.matricula}"
+							 label		=	"Login"
+							 style		=	"width:200px;"
+							 required	=	"true"
+							 disabled	=	"#{controlador.isExcluindo() or controlador.isVisualizando()}"/>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:outputLabel for			=	"habilitado"
+							   value		=	"Habilitado? *" /><br />
+		     	<p:selectOneMenu id			=	"habilitado"
+		     					 value		=	"#{controlador.usuario.habilitado}"
+		     					 required	=	"true"
+					 		 	 label		=	"Habilitado"
+					 		 	 disabled	=	"#{controlador.isExcluindo() or controlador.isVisualizando()}"
+					 		 	 style		=	"width:200px;">
+					<f:selectItem itemLabel="Selecione..." itemValue=""/>
+					<f:selectItem itemLabel="Habilitado" itemValue="true"/>
+					<f:selectItem itemLabel="Desabilitado" itemValue="false"/>
+		       	</p:selectOneMenu>
+		     </h:panelGroup>
+		     
+	     </h:panelGrid>
+	     <h:panelGrid columns="1" cellpadding="5" rendered="#{controlador.isAdicionando() or controlador.isAlterando()}">
+			
+			<h:panelGroup>
+				<h:commandButton id				=	"botaoTrocaSenha"
+								 value			=	"#{controlador.exibirCampoSenha ? 'Ocultar campo senha' : 'Exibir campo senha'}" 
+								 actionListener	=	"#{controlador.exibirCampoSenha}"
+								 reRender		=	"outputPanelSenha"
+								 immediate		=	"true"/>
+			</h:panelGroup>
+			
+			<p:outputPanel id					=	"outputPanelSenha"
+						   rendered				=	"#{controlador.exibirCampoSenha}">
+				<h:panelGroup>
+					<h:outputLabel for			=	"senha"
+								   value		=	"Senha *" /><br/>
+					<p:password id				=	"senha"
+								value			=	"#{controlador.usuario.senha}"
+								label			=	"Senha"
+								style			=	"width:200px;"
+								feedback		=	"true"
+								promptLabel		=	"Digite a senha"
+								weakLabel		=	"Fraca..."
+								goodLabel		=	"Boa..."
+								strongLabel		=	"Ótima..."
+								required		=	"true"
+								converter		=	"conversorCriptografia"
+								disabled		=	"#{controlador.isExcluindo() or controlador.isVisualizando()}"/>
+                        
+				</h:panelGroup>
+				
+			</p:outputPanel>
+			
+		</h:panelGrid>
+			
+			<h:panelGroup> 
+                <p:pickList id					=	"perfil"
+                			value				=	"#{controlador.perfilListModel}"  
+                			label				=	"Perfis"
+                			var					=	"perfil"  
+                			itemLabel			=	"#{perfil.nomeRole.tipo}"  
+                			itemValue			=	"#{perfil}"
+                			style				=	"text-transform: uppercase;"
+                			converter			=	"conversorEntidadeGenerico"
+                			required			=	"true"
+                			disabled			=	"#{controlador.isExcluindo() or controlador.isVisualizando()}">
+        			<f:facet name="sourceCaption">Perfis</f:facet>  
+					<f:facet name="targetCaption">Perfis Selecionados</f:facet>							
+        		</p:pickList> 
+        	</h:panelGroup>
+        	
+    </ui:define>
+    
+    <ui:define name="blocoResultadoDaBusca">
+		<p:dataTable var="objeto" value="#{lista}"
+ 					 rows="5" paginator="true" paginatorPosition="top"
+ 					 id="tabela"
+ 					 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+ 					 rowsPerPageTemplate="5,10,15" >
+ 			<p:column style="text-align:center;">
+        		<f:facet name="header">
+					<h:outputText value="A&#231;&#245;es"/>
+				</f:facet>
+				<h:commandLink id="alterar" reRender="formulario" title="Alterar" actionListener="#{controlador.prepararAlterar}" immediate="true">
+					<h:graphicImage value="/imagens/alterar.gif" style="border: none;"/>
+					<f:setPropertyActionListener value="#{objeto}" target="#{controlador.usuario}" />
+				</h:commandLink>
+				<h:commandLink id="excluir" reRender="formulario" title="Excluir" actionListener="#{controlador.prepararExcluir}" immediate="true">
+					<h:graphicImage value="/imagens/excluir.gif" style="border: none;"/>
+					<f:setPropertyActionListener value="#{objeto}" target="#{controlador.usuario}" />
+				</h:commandLink>
+				<h:commandLink id="visualizar" reRender="formulario" title="Visualizar" actionListener="#{controlador.prepararVisualizar}" immediate="true">
+					<h:graphicImage value="/imagens/visualizar.png" style="border: none;"/>
+					<f:setPropertyActionListener value="#{objeto}" target="#{controlador.usuario}" />
+				</h:commandLink>																						
+        	</p:column>
+ 			<p:column style="text-align:center;">
+ 				<f:facet name="header">
+					<h:outputText value="Usuário"/>
+				</f:facet>
+				<h:outputText value="#{objeto.nome}" style="text-transform: uppercase;"/>
+        	</p:column>
+			<p:column style="text-align:center;">
+				<f:facet name="header">
+					<h:outputText value="Identifica&#231;&#227;o Fiscal" />
+				</f:facet>
+				<h:outputText value="#{objeto.identificacaoFiscal}" converter="conversorCPF" rendered="#{objeto.isPessoaFisica()}"/>
+				<h:outputText value="#{objeto.identificacaoFiscal}" converter="conversorCNPJ" rendered="#{objeto.isPessoaJuridica()}"/>
+			</p:column>
+			<p:column style="text-align:center;">
+				<f:facet name="header">
+					<h:outputText value="E-mail" />
+				</f:facet>
+				<h:outputText value="#{objeto.email}" />
+			</p:column>			
+        </p:dataTable>
+	</ui:define>	
+</ui:composition>
+
+
+
+</html>

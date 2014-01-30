@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+      
+<ui:composition template="/paginas/facelet-principal.xhtml">	
+	
+	<ui:define name="titulo">...::Sobre::...</ui:define>
+	
+	<ui:define name="conteudo">
+	    <p:dialog header="setsoft" visible="true" closable="false" draggable="false" resizable="false" width="400">	     
+	        <p>Maven+Spring+JPA+Hibernate+JSF+JQuery+Primefaces</p>
+	
+			<p>setsoft é um tipo de archetype para desenvolvimento de sistemas web na linguagem de programação Java.</p>
+			
+			<p>Provê um conjunto de softwares integrados.</p>
+	
+			<p>Utiliza MVC, JNDI, Injeção de Dependência, Criptografia SHA-256.</p>
+			
+			<p>Desenvolvedor:</p>
+			<p>Joel Marques (bitmarques@gmail.com)</p>
+			
+			<p align="right"><a href="http://bitmarques.com" target="_blank">http://bitmarques.com</a></p>
+			<p align="right"><a href="https://github.com/joelmarques/setsoft" target="_blank">GitHub</a></p>
+	    </p:dialog>
+	</ui:define>
+		
+</ui:composition>
+
+</html>

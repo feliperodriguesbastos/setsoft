@@ -1,0 +1,335 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.setsoft</groupId>
+	<artifactId>setsoft</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>setsoft Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<maven.test.skip>true</maven.test.skip>
+		<maven.test.failure.ignore>true</maven.test.failure.ignore>
+		<downloadSources>true</downloadSources>
+		<downloadJavadocs>true</downloadJavadocs>
+		<wtpversion>2.0</wtpversion>
+	</properties>
+	
+	<repositories>
+	
+		<!--Repositorio do JSF 2 da dev net	-->
+		<repository>
+   			<id>maven2-repository.dev.java.net</id>
+   			<name>Java.net Maven Repository</name>
+   			<url>http://download.java.net/maven/2/</url>
+   			<layout>default</layout>
+		</repository>
+		
+	   <!-- For hibernate support:org.jboss.jandex -->
+	   	<repository> 
+	   		<id>jboss</id>
+	   		<url>https://repository.jboss.org/nexus/content/groups/public/</url> 
+	   	</repository>
+	   				
+		<!--Repositorio do primefaces -->
+		<repository>  
+   			<id>prime-repo</id>  
+   			<name>PrimeFaces Maven Repository</name>  
+   			<url>http://repository.primefaces.org</url>  
+   			<layout>default</layout>  
+		</repository> 
+		   
+	</repositories>	 
+
+	<dependencies>
+	
+		<!-- para testes unitarios -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>5.13.1</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- para jpa2.0 com hibernate -->	
+  		<dependency>
+    		<groupId>org.hibernate.javax.persistence</groupId>
+    		<artifactId>hibernate-jpa-2.0-api</artifactId>
+    		<version>1.0.1.Final</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-core</artifactId>
+    		<version>4.2.5.Final</version>
+		</dependency>				
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-entitymanager</artifactId>
+    		<version>4.2.5.Final</version>
+		</dependency>				
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-validator</artifactId>
+    		<version>5.0.1.Final</version>
+		</dependency>		
+		<dependency>
+    		<groupId>log4j</groupId>
+    		<artifactId>log4j</artifactId>
+    		<version>1.2.16</version>
+		</dependency>		
+		<dependency>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-api</artifactId>
+    		<version>1.7.5</version>
+		</dependency>		
+		<dependency>
+    		<groupId>org.slf4j</groupId>
+    		<artifactId>slf4j-log4j12</artifactId>
+    		<version>1.7.5</version>
+		</dependency>
+		
+		<!-- driver para o banco de dados PostgreSQL 9 -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.0-801.jdbc3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.3.170</version>
+		</dependency> 	
+		
+		<!-- Option 1: Use if deploying to a Java EE application server (GlassFish, JBoss AS, etc) -->
+		<!-- 
+		<dependency>
+			<groupId>javax.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+		 -->
+
+		<!-- Option 2: Use if deploying to a servlet container (Tomcat, Jetty, etc) -->
+		<!--dependencia do JSF 2 da dev net-->	
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.facelets</groupId>
+			<artifactId>jsf-facelets</artifactId>
+			<version>1.1.15</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.el</groupId>
+    		<artifactId>el-api</artifactId>
+    		<version>1.0</version>
+    		<scope>provided</scope>
+		</dependency>
+		
+		 <!-- Servlet 3.0 para o filtro da classe JPAFilter -->
+		 <dependency>
+    		<groupId>javax.servlet</groupId>
+    		<artifactId>javax.servlet-api</artifactId>
+    		<version>3.0.1</version>
+    		<scope>provided</scope>
+		</dependency>		
+		
+		
+  		<!-- para componentes para jsf2 primefaces -->
+  		<dependency>  
+    		<groupId>org.primefaces</groupId>  
+    		<artifactId>primefaces</artifactId>  
+    		<version>3.5</version>  
+  		</dependency>
+  		
+  		<dependency>  
+    		<groupId>org.primefaces.themes</groupId>  
+    		<artifactId>pepper-grinder</artifactId>  
+    		<version>1.0.2</version>  
+  		</dependency>
+  		
+  		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3</version>
+		</dependency>
+  		
+  		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.3.1</version>
+		</dependency>
+		
+		<!--  
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-openid</artifactId>
+			<version>3.1.0.RELEASE</version>
+		</dependency>
+		-->
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>3.2.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>3.2.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.2.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>3.2.4.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>3.1.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.1.4.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.1.4.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.3</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.9</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.4.4</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>1.9.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+		
+		<!-- 
+		<dependency>
+			<groupId>br.com.caelum.stella</groupId>
+			<artifactId>caelum-stella</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		 -->
+  		
+  		<!-- para o teste de deploy no tomcat 
+		<dependency>
+    		<groupId>org.codehaus.mojo</groupId>
+    		<artifactId>tomcat-maven-plugin</artifactId>
+    		<version>1.1</version>
+		</dependency>
+-->		
+		
+	</dependencies>
+
+
+	<build>
+		<finalName>setsoft</finalName>
+		<plugins>
+			<!-- testando o deploy no tomcat 
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>tomcat-maven-plugin</artifactId>
+						<configuration>
+							<url>http://localhost:8080/manager</url>
+							<server>tomcat</server>
+							<path>/modeloArquitetura</path>
+						</configuration>
+					
+					</plugin>
+					-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>ISO-8859-1</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>ISO-8859-1</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<webappDirectory>src/main/webapp/</webappDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+	</build>
+
+</project>
