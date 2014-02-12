@@ -212,4 +212,9 @@ public class Pessoa implements IEntidadeBase<Integer>,Serializable {
 		
 		return StringUtil.converterListaStringParaString(Arrays.asList(this.nome, this.identificacaoFiscal), " - ");
 	}
+	
+	public boolean possuiEmail() {
+		
+		return StringUtil.isPreenchida(this.email);
+	}
 }
