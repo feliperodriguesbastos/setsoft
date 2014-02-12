@@ -4,7 +4,8 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html" 
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags">
 
 
 <f:view encoding="ISO-8859-1" locale="pt_BR">      
@@ -69,6 +70,24 @@
     				</td>
     			</tr>
     			
+    			<sec:authorize access="hasAnyRole('ADMINISTRADOR')" >
+    			<tr>
+    				<td align="center" valign="middle">
+    					<a href="#{facesContext.externalContext.requestContextPath}/paginas/perfil-administrador/usuario.jsf" title="Usuários">
+    						<img border="0" src="#{facesContext.externalContext.requestContextPath}/imagens/perfil.png"/>
+    					</a>
+    				</td>
+    			</tr>
+    			</sec:authorize>
+    			
+    			<tr>
+    				<td align="center" valign="middle">
+    					<a href="#{facesContext.externalContext.requestContextPath}/paginas/feedback.jsf" title="Feedback">
+    						<img border="0" src="#{facesContext.externalContext.requestContextPath}/imagens/feedback.png"/>
+    					</a>
+    				</td>
+    			</tr>
+    			
     			<tr>
     				<td align="center" valign="middle">											
     					<a href="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" title="Sair">
@@ -93,8 +112,9 @@
 					            <p:menuitem value="Usuários" url="/paginas/perfil-administrador/usuario.jsf"/>
 					        </p:submenu>
 					        
-				            <p:submenu label="Sobre" icon="ui-icon ui-icon-help">
-				         		<p:menuitem value="Sistema" url="/paginas/sobre.jsf" />
+					        <p:submenu label="Ajuda" icon="ui-icon ui-icon-help">
+				            	<p:menuitem value="Feedback" url="/paginas/feedback.jsf" />
+				         		<p:menuitem value="Sobre" url="/paginas/sobre.jsf" />
 				         	</p:submenu>
 				         	 
 				         	 <p:menuitem value="Sair" url="#{facesContext.externalContext.requestContextPath}/j_spring_security_logout" />
