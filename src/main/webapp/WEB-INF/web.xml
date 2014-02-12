@@ -30,6 +30,16 @@
     <param-value>pepper-grinder</param-value>  
   </context-param>
   
+  <context-param>
+  	<param-name>primefaces.UPLOADER</param-name>
+  	<param-value>commons</param-value>
+  </context-param>
+  
+  <context-param>
+    <param-name>facelets.LIBRARIES</param-name>
+    <param-value>/WEB-INF/springsecurity.taglib.xml</param-value>
+  </context-param>
+  
   <!-- Inicio das configuracoes para o Spring Security 3  -->  
   <listener>
   	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -65,7 +75,7 @@
    	</init-param>
    	<init-param>
    		<param-name>thresholdSize</param-name>
-   		<param-value>10485760</param-value>
+   		<param-value>209715200</param-value>
    	</init-param>
    </filter>
    
