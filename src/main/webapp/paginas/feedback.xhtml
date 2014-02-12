@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+<ui:composition template="/paginas/facelet-crud.xhtml">
+	
+	<ui:param name="nomeEntidade" value="Feedback" />
+	<ui:param name="controlador" value="#{controladorFeedback}" />
+	<ui:param name="lista" value="#{controlador.listaFeedback}" />
+	
+	<ui:define name="blocoBuscar">			
+		<h:panelGrid columns="3" cellpadding="5">		
+			<h:panelGroup>
+				<h:outputLabel for			=	"descricaoFiltro"
+							   value		=	"Descrição" /><br/>
+				<p:inputText id				=	"descricaoFiltro"
+							 value			=	"#{controlador.feedback.descricao}"
+							 label			=	"Descrição"
+							 style			=	"width:283px;">
+				</p:inputText>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:outputLabel for			=	"tipoFiltro"
+							   value		=	"Tipo" /><br/>
+				<p:selectOneMenu id			=	"tipoFiltro"
+								 value		=	"#{controlador.feedback.tipoFeedback}"
+						 		 label		=	"Tipo">
+					<f:selectItem itemLabel="Selecione..." itemValue=""/>
+					<f:selectItems value="#{controlador.feedback.tiposDeFeedBack}"
+								   var="t" itemLabel="#{t.tipo}"/>
+		    	</p:selectOneMenu>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:outputLabel for				=	"usuarioFiltro"
+							   value			=	"Colaborador" /><br />
+      				<p:selectOneMenu id			=	"usuarioFiltro"
+      								 value		=	"#{controlador.feedback.colaborador}"
+						 		 	 label		=	"Colaborador"
+						 		 	 converter	=	"conversorEntidadeGenerico"
+				 		 		 	 style		=	"text-transform: uppercase;">
+					<f:selectItem itemLabel="Selecione..." itemValue=""/>
+					<f:selectItems value="#{controlador.usuarios}" 
+          							   var="colaborador" itemLabel="#{colaborador.nome}"/>
+          			</p:selectOneMenu>
+    		</h:panelGroup>
+		</h:panelGrid>	
+	</ui:define>	
+	
+	<ui:define name="blocoSalvarEditarExcluir">
+	
+		<h:panelGrid columns="3" cellpadding="5">
+			<h:panelGroup>
+				<h:outputLabel for			=	"dataCadastro"
+							   value		=	"Data do Cadastro *" /><br />
+				<h:inputText id				=	"dataCadastro"
+							 value			=	"#{controlador.feedback.dataCadastro}"
+							 disabled		=	"true" >
+					<f:convertDateTime type="date" dateStyle="short"
+						timeZone="America/Belem" pattern="dd/MM/yyyy HH:mm:ss" />
+				</h:inputText>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:outputLabel for			=	"tipo"
+							   value		=	"Tipo *" /><br/>
+				<p:selectOneMenu id			=	"tipo"
+								 value		=	"#{controlador.feedback.tipoFeedback}"
+						 		 label		=	"Tipo"
+						 		 disabled	=	"#{controlador.isExcluindo() or controlador.isVisualizando()}"
+					 		 	 required	=	"true" >
+					<f:selectItem itemLabel="Selecione..." itemValue=""/>
+					<f:selectItems value="#{controlador.feedback.tiposDeFeedBack}" 
+		          					   var="t" itemLabel="#{t.tipo}"/>
+		    	</p:selectOneMenu>
+			</h:panelGroup>
+			
+			<h:panelGroup>
+				<h:outputLabel for				=	"usuario"
+							   value			=	"Colaborador *" /><br />
+      				<p:selectOneMenu id			=	"usuario"
+      								 value		=	"#{controlador.feedback.colaborador}"
+						 		 	 label		=	"Colaborador"
+						 		 	 converter	=	"conversorEntidadeGenerico"
+				 		 		 	 style		=	"text-transform: uppercase;"
+				 		 		 	 disabled	=	"true" 
+				 		 		 	 required	=	"true" >
+					<f:selectItem itemLabel="Selecione..." itemValue=""/>
+					<f:selectItems value="#{controlador.usuarios}" 
+          							   var="colaborador" itemLabel="#{colaborador.nome}"/>
+          			</p:selectOneMenu>
+    		</h:panelGroup>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1" cellpadding="5">
+			
+			<h:panelGroup>
+		     	<h:outputLabel for					=	"descricao"
+		     				   value				=	"Descrição *" /><br />
+		     	<p:inputTextarea id					=	"descricao"
+		     					 value				=	"#{controlador.feedback.descricao}"
+							 	 label				=	"Descrição"
+							 	 disabled			=	"#{controlador.isExcluindo() or controlador.isVisualizando()}"
+							 	 style				=	"width:415px;height:100px" effectDuration="400"
+							 	 maxlength			=	"1000"
+							 	 counterTemplate	=	"{0} Caracteres restantes."
+							 	 counter			=	"counter"
+							 	 autoResize			=	"false"
+								 required			=	"true" >
+					<f:validateLength maximum="1000"  />
+				</p:inputTextarea>
+				<br />
+				<h:outputText id="counter" />
+		     </h:panelGroup>
+			
+   		</h:panelGrid>
+    	
+   		<fieldset><legend>Anexos</legend>
+			<h:panelGrid columns="1" cellpadding="5">
+				<h:panelGroup rendered					=	"#{controlador.isAdicionando() or controlador.isAlterando()}">
+					<p:fileUpload id					=	"upload"
+		  					  	  label					=	"Buscar arquivo..."
+		  					  	  uploadLabel			=	"Upload"
+		  					  	  cancelLabel			=	"Cancelar"
+		    					  mode 					=	"advanced"
+		    					  fileUploadListener	=	"#{controlador.upload}"
+		    					  multiple				=	"true"
+		    					  auto					=	"true"
+		  					  	  sizeLimit				=	"209715200"
+		  					  	  fileLimit				=	"2"
+		  					  	  invalidSizeMessage 	=	"Tamanho de arquivo inválido."
+		  					  	  fileLimitMessage		=	"Quantidade de arquivos excedida."
+		  					  	  invalidFileMessage	=	"Formato de arquivo inválido."
+		  					  	  update				=	"@this,panelDownload"
+		    					  rendered				=	"true">
+		  			</p:fileUpload>
+		 		</h:panelGroup>
+		 			
+	 			<p:outputPanel id="panelDownload">	 				
+	 				<h:panelGroup>	 				
+		 				<p:dataList value="#{controlador.feedback.arquivos}" var="arquivo" itemType="square"
+		 							emptyMessage="Sem anexos.">  
+				  			<h:commandLink id					=	"download"
+				  						   title				=	"Download"
+				  						   action				=	"#{controlador.download}"
+				  						   immediate			=	"true"
+				  						   style				=	"margin-right:20px;" 
+			  						   	   disabled				=	"#{controlador.isExcluindo()}" >  
+						        <h:outputText value				=	"#{arquivo.tituloArquivo}" />
+						        <f:setPropertyActionListener value="#{arquivo}" target="#{controlador.arquivoSelecionado}" />
+						    </h:commandLink>
+						    <h:commandLink id					=	"excluirArquivo"
+						    			   title				=	"Excluir"
+						    			   action				=	"#{controlador.removerArquivo}"
+						    			   immediate			=	"true"
+						    			   reRender				=	"panelDownload" 
+						    			   rendered				=	"#{controlador.isAdicionando() or controlador.isAlterando()}">
+								<h:graphicImage value="/imagens/excluir.gif" style="border: none;"/>
+								<f:setPropertyActionListener value="#{arquivo}" target="#{controlador.arquivoSelecionado}" />
+							</h:commandLink>
+				    	</p:dataList>
+			    	</h:panelGroup>
+		    	</p:outputPanel>
+		    </h:panelGrid>
+	    </fieldset>
+		
+    </ui:define>
+    
+    <ui:define name="blocoResultadoDaBusca">
+		<p:dataTable var="objeto" value="#{lista}"
+ 					 rows="5" paginator="true" paginatorPosition="top"
+ 					 id="tabela"
+ 					 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+ 					 rowsPerPageTemplate="5,10,15" >
+ 			<p:column style="text-align:center; width:10%" exportable="false">
+        		<f:facet name="header">
+					<h:outputText value="A&#231;&#245;es"/>
+				</f:facet>
+				<h:commandLink id="alterar" reRender="formulario" title="Alterar" actionListener="#{controlador.prepararAlterar}" immediate="true">
+					<h:graphicImage value="/imagens/alterar.gif" style="border: none;"/>
+					<f:setPropertyActionListener value="#{objeto}" target="#{controlador.feedback}" />
+				</h:commandLink>
+				<h:commandLink id="excluir" reRender="formulario" title="Excluir" actionListener="#{controlador.prepararExcluir}" immediate="true">
+					<h:graphicImage value="/imagens/excluir.gif" style="border: none;"/>
+					<f:setPropertyActionListener value="#{objeto}" target="#{controlador.feedback}" />
+				</h:commandLink>
+				<h:commandLink id="visualizar" reRender="formulario" title="Visualizar" actionListener="#{controlador.prepararVisualizar}" immediate="true">
+					<h:graphicImage value="/imagens/visualizar.png" style="border: none;"/>
+					<f:setPropertyActionListener value="#{objeto}" target="#{controlador.feedback}" />
+				</h:commandLink>																						
+        	</p:column>
+ 			<p:column style="text-align:center; width:60%">
+ 				<f:facet name="header">
+					<h:outputText value="Descrição"/>
+				</f:facet>
+				<h:outputText value="#{objeto.descricao}" style="text-transform: uppercase;"/>
+        	</p:column>
+			<p:column style="text-align:center; width:15%">
+				<f:facet name="header">
+					<h:outputText value="Tipo" />
+				</f:facet>
+				<h:outputText value="#{objeto.tipoFeedback.tipo}" />
+			</p:column>
+			<p:column style="text-align:center; width:15%">
+				<f:facet name="header">
+					<h:outputText value="Colaborador" />
+				</f:facet>
+				<h:outputText value="#{objeto.colaborador.nome}" />
+			</p:column>			
+        </p:dataTable>
+        
+        <h:commandLink>  
+			<h:graphicImage value="/imagens/excel32.png" style="border: none;" title="Relatorio"/> 
+		    <p:dataExporter type="xls" target="tabela" fileName="relatorio" pageOnly="false" />  
+ 		</h:commandLink>
+        
+	</ui:define>	
+</ui:composition>
+
+
+
+</html>
