@@ -1,5 +1,6 @@
 package br.com.setsoft.controlador;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -7,9 +8,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
+
 import br.com.setsoft.enuns.EnumOperacao;
 import br.com.setsoft.interfaces.ICrudGenerico;
 import br.com.setsoft.interfaces.IEntidadeBase;
+import br.com.setsoft.interfaces.arquivo.IArquivo;
+import br.com.setsoft.interfaces.arquivo.ISuporteArquivo;
+import br.com.setsoft.modelo.Arquivo;
+import br.com.setsoft.remetente.IRemetente;
+import br.com.setsoft.remetente.RemetenteWeb;
+import br.com.setsoft.utilidade.StringUtil;
 
 public abstract class ControladorGenerico<T extends IEntidadeBase<PK>, PK extends Serializable> {
 	
@@ -132,11 +142,19 @@ public abstract class ControladorGenerico<T extends IEntidadeBase<PK>, PK extend
 	}
 	
 	protected void exibirMensagemSucesso() {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Operação realizada com sucesso!", null));
+		registrarMensagemInfo("Operação realizada com sucesso!");
 	}
 	
 	protected void exibirMensagemErro(Exception e) {
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Operação não realizada! Erro:"+e, null));
+		registrarMensagemErro("Operação não realizada! Erro:"+e);
+	}
+	
+	public void registrarMensagemInfo(String mensagem) {
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem, null));
+	}
+	
+	public void registrarMensagemErro(String mensagem) {
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem, null));
 	}
 	
 	protected Boolean exibirMensagemErro(){return true;}
@@ -182,6 +200,45 @@ public abstract class ControladorGenerico<T extends IEntidadeBase<PK>, PK extend
 	
 	public Boolean isExcluindo(){
 		return EnumOperacao.EXCLUIR.equals(getOperacao());
+	}
+	
+	private Arquivo arquivoSelecionado;
+	
+	public Arquivo getArquivoSelecionado() {
+		
+		return arquivoSelecionado;
+	}
+
+	public void setArquivoSelecionado(Arquivo arquivoSelecionado) {
+		
+		this.arquivoSelecionado = arquivoSelecionado;
+	}
+	
+	public void upload(FileUploadEvent event) throws Exception {
+		
+
+		try {
+			UploadedFile file = event.getFile();		
+			this.adicionarArquivo(new Arquivo(file.getContents(), StringUtil.normalizer(file.getFileName())));
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void adicionarArquivo(IArquivo arquivo) {
+		
+		((ISuporteArquivo)getObjeto()).adicionarArquivo(arquivo);
+	}
+	
+	public void download() throws IOException {
+		
+		IRemetente remetente = new RemetenteWeb();
+		remetente.enviar(getArquivoSelecionado());		
+	}
+	
+	public void removerArquivo() {
+		
+		((ISuporteArquivo)getObjeto()).removerArquivo(this.getArquivoSelecionado());
 	}
 
 }
