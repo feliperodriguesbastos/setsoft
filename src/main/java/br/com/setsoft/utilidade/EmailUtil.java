@@ -28,9 +28,9 @@ public class EmailUtil {
 	private static final String HOSTNAME = "smtp.gmail.com";
 	private static final int PORTA = 587;
 	private static final boolean TLS = true;
-	private static final String USERNAME = "setsoft@gmail.com";
-	private static final String PASSWORD = "setsoft";
-	private static final String EMAILORIGEM = "setsoft@gmail.com";
+	private static final String USERNAME = "admtfg@gmail.com";
+	private static final String PASSWORD = "jlpadm2012";
+	private static final String EMAILORIGEM = "admtfg@gmail.com";
 	
 	
 	public static  Email conectaEmail() throws EmailException{
