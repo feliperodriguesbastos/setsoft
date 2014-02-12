@@ -1,6 +1,7 @@
 package br.com.setsoft.utilidade;
 
 import java.util.Arrays;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -56,5 +57,20 @@ public class StringUtil {
 		}
 		
 		return Collections.emptyList();
+	}
+	
+	//TODO criar teste
+	public static String normalizer(String nome) {
+
+		if (StringUtil.isPreenchida(nome)) {
+
+			nome = nome.trim().replaceAll(" ", "_");
+			nome = java.text.Normalizer.normalize(nome, java.text.Normalizer.Form.NFD);
+			nome = nome.replaceAll("[^\\p{ASCII}]", "");
+
+			return nome;
+		}
+
+		return "";
 	}
 }
