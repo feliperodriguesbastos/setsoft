@@ -130,4 +130,14 @@ public abstract class CrudGenerico<T extends IEntidadeBase<PK>, PK extends Seria
 	protected abstract Class<T> getClassePersistente();
 
 	protected abstract EntityManager getEntityManager();
+	
+	public boolean isNull(Object object) {
+		
+		return object == null;
+	}
+	
+	public boolean isNotNull(Object object) {
+		
+		return object != null;
+	}
 }
