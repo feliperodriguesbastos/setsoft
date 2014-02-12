@@ -117,7 +117,7 @@
     <dependent-module archiveName="postgresql-9.0-801.jdbc3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/postgresql/postgresql/9.0-801.jdbc3/postgresql-9.0-801.jdbc3.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
-    <dependent-module archiveName="primefaces-3.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/primefaces/primefaces/3.5/primefaces-3.5.jar">
+    <dependent-module archiveName="primefaces-4.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/primefaces/primefaces/4.0/primefaces-4.0.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module archiveName="slf4j-api-1.7.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/slf4j/slf4j-api/1.7.5/slf4j-api-1.7.5.jar">
@@ -132,6 +132,9 @@
     <dependent-module archiveName="spring-beans-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-beans/3.2.4.RELEASE/spring-beans-3.2.4.RELEASE.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <dependent-module archiveName="spring-binding-2.2.1.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/webflow/spring-binding/2.2.1.RELEASE/spring-binding-2.2.1.RELEASE.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
     <dependent-module archiveName="spring-context-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-context/3.2.4.RELEASE/spring-context-3.2.4.RELEASE.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
@@ -141,7 +144,16 @@
     <dependent-module archiveName="spring-expression-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-expression/3.2.4.RELEASE/spring-expression-3.2.4.RELEASE.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
+    <dependent-module archiveName="spring-faces-2.2.1.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/webflow/spring-faces/2.2.1.RELEASE/spring-faces-2.2.1.RELEASE.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
     <dependent-module archiveName="spring-jdbc-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-jdbc/3.2.4.RELEASE/spring-jdbc-3.2.4.RELEASE.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
+    <dependent-module archiveName="spring-js-2.2.1.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/webflow/spring-js/2.2.1.RELEASE/spring-js-2.2.1.RELEASE.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
+    <dependent-module archiveName="spring-js-resources-2.2.1.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/webflow/spring-js-resources/2.2.1.RELEASE/spring-js-resources-2.2.1.RELEASE.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module archiveName="spring-security-config-3.1.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/security/spring-security-config/3.1.4.RELEASE/spring-security-config-3.1.4.RELEASE.jar">
@@ -157,6 +169,9 @@
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module archiveName="spring-web-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-web/3.2.4.RELEASE/spring-web-3.2.4.RELEASE.jar">
+      <dependency-type>uses</dependency-type>
+    </dependent-module>
+    <dependent-module archiveName="spring-webflow-2.2.1.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/webflow/spring-webflow/2.2.1.RELEASE/spring-webflow-2.2.1.RELEASE.jar">
       <dependency-type>uses</dependency-type>
     </dependent-module>
     <dependent-module archiveName="spring-webmvc-3.2.4.RELEASE.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/var/M2_REPO/org/springframework/spring-webmvc/3.2.4.RELEASE/spring-webmvc-3.2.4.RELEASE.jar">
