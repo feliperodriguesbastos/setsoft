@@ -4,10 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.setsoft.controlador.service.ControladorFeedbackService;
 import br.com.setsoft.controlador.service.ControladorUsuarioService;
@@ -19,7 +19,7 @@ import br.com.setsoft.utilidade.Mensagem;
 
 import com.sun.xml.internal.ws.util.UtilException;
 
-@ManagedBean(name = "controladorFeedback")
+@Named
 @ViewScoped
 public class ControladorFeedback extends ControladorGenerico<Feedback, Integer> {
 	
@@ -29,13 +29,13 @@ public class ControladorFeedback extends ControladorGenerico<Feedback, Integer> 
 	
 	private List<Usuario> usuarios;
 	
-	@ManagedProperty(value = "#{controladorFeedbackService}")
+	@Inject
 	private ControladorFeedbackService controladorFeedbackService;
 	
-	@ManagedProperty(value = "#{controladorLogin}")
+	@Inject
 	private ControladorLogin controladorLogin;
 	
-	@ManagedProperty(value = "#{controladorUsuarioService}")
+	@Inject
 	private ControladorUsuarioService controladorUsuarioService;
 	
 	@PostConstruct
@@ -147,30 +147,4 @@ public class ControladorFeedback extends ControladorGenerico<Feedback, Integer> 
 		this.usuarios = usuarios;
 	}
 
-	public ControladorFeedbackService getControladorFeedbackService() {
-		return controladorFeedbackService;
-	}
-
-	public void setControladorFeedbackService(
-			ControladorFeedbackService controladorFeedbackService) {
-		this.controladorFeedbackService = controladorFeedbackService;
-	}
-
-	public ControladorLogin getControladorLogin() {
-		return controladorLogin;
-	}
-
-	public void setControladorLogin(ControladorLogin controladorLogin) {
-		this.controladorLogin = controladorLogin;
-	}
-
-	public ControladorUsuarioService getControladorUsuarioService() {
-		return controladorUsuarioService;
-	}
-
-	public void setControladorUsuarioService(
-			ControladorUsuarioService controladorUsuarioService) {
-		this.controladorUsuarioService = controladorUsuarioService;
-	}
-	
 }

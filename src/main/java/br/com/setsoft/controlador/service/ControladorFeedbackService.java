@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -14,8 +12,6 @@ import br.com.setsoft.modelo.Feedback;
 import br.com.setsoft.utilidade.Fabrica;
 import br.com.setsoft.utilidade.StringUtil;
 
-@ManagedBean(name = "controladorFeedbackService")
-@SessionScoped
 public class ControladorFeedbackService extends CrudGenerico<Feedback, Integer> {
 
 	@Override

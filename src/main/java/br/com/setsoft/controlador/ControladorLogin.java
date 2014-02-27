@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -16,13 +16,13 @@ import org.springframework.security.core.userdetails.User;
 import br.com.setsoft.controlador.service.ControladorUsuarioService;
 import br.com.setsoft.modelo.Usuario;
 
-@ManagedBean(name = "controladorLogin")
+@Named
 @SessionScoped
 public class ControladorLogin implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
-	@ManagedProperty(value = "#{controladorUsuarioService}")
+	@Inject
 	private ControladorUsuarioService controladorUsuarioService;
 	
 	private Usuario usuario;

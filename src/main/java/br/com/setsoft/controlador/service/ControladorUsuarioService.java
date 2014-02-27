@@ -1,9 +1,8 @@
 package br.com.setsoft.controlador.service;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 
 import br.com.setsoft.crud.CrudGenerico;
@@ -11,9 +10,12 @@ import br.com.setsoft.modelo.Role;
 import br.com.setsoft.modelo.Usuario;
 import br.com.setsoft.utilidade.Fabrica;
 
-@ManagedBean(name = "controladorUsuarioService")
-@SessionScoped
-public class ControladorUsuarioService extends CrudGenerico<Usuario, Integer>{
+public class ControladorUsuarioService extends CrudGenerico<Usuario, Integer> implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected Class<Usuario> getClassePersistente() {

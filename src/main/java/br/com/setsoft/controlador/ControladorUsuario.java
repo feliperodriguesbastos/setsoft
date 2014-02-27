@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.primefaces.model.DualListModel;
@@ -17,7 +17,7 @@ import br.com.setsoft.controlador.service.ControladorUsuarioService;
 import br.com.setsoft.modelo.Role;
 import br.com.setsoft.modelo.Usuario;
 
-@ManagedBean(name = "controladorUsuario")
+@Named
 @ViewScoped
 public class ControladorUsuario extends ControladorGenerico<Usuario, Integer> {
 	
@@ -31,7 +31,7 @@ public class ControladorUsuario extends ControladorGenerico<Usuario, Integer> {
 	
 	private List<Role> perfilList;
 	
-	@ManagedProperty(value = "#{controladorUsuarioService}")
+	@Inject
 	private ControladorUsuarioService controladorUsuarioService;
 	
 	@PostConstruct
@@ -129,15 +129,6 @@ public class ControladorUsuario extends ControladorGenerico<Usuario, Integer> {
 		this.usuarios = usuarios;
 	}
 
-	public ControladorUsuarioService getControladorUsuarioService() {
-		return controladorUsuarioService;
-	}
-
-	public void setControladorUsuarioService(
-			ControladorUsuarioService controladorUsuarioService) {
-		this.controladorUsuarioService = controladorUsuarioService;
-	}
-	
 	public boolean isExibirCampoSenha() {
 		return exibirCampoSenha;
 	}
